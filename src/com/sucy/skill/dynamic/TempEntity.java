@@ -782,4 +782,9 @@ public class TempEntity implements LivingEntity
     {
         return null;
     }
+    
+    public void setAI(boolean b)
+    {
+    	this.setAI(b);
+    }
 }

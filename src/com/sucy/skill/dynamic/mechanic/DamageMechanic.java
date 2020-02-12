@@ -59,7 +59,7 @@ public class DamageMechanic extends EffectComponent
         boolean left = pString.equals("percent left");
         boolean trueDmg = settings.getBool(TRUE, false);
         double damage = attr(caster, DAMAGE, level, 1.0, isSelf);
-        if (damage < 0) return false;
+        if (damage < 1) return false;
         for (LivingEntity target : targets)
         {
             double amount = damage;
