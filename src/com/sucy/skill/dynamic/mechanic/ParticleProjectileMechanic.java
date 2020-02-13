@@ -144,7 +144,6 @@ public class ParticleProjectileMechanic extends EffectComponent implements Proje
         if (hit == null)
         {
             hit = new TempEntity(projectile.getLocation());
-            ((TempEntity) hit).setAI(true);
         }
         ArrayList<LivingEntity> targets = new ArrayList<LivingEntity>();
         targets.add(hit);
