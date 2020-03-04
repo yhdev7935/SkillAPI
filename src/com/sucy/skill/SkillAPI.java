@@ -535,9 +535,8 @@ public class SkillAPI extends JavaPlugin {
 
         singleton.getServer().getScheduler().runTaskAsynchronously(singleton, () -> {
             PlayerAccounts accounts = getPlayerAccountData(player);
-            if (!skipSaving) {
-                singleton.io.saveData(accounts);
-            }
+            if(!skipSaving)
+            	singleton.io.saveData(accounts);
             singleton.players.remove(new VersionPlayer(player).getIdString());
         });
     }

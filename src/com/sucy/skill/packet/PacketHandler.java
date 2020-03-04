@@ -37,16 +37,16 @@ class PacketHandler extends ChannelDuplexHandler {
             case "PacketPlayInBlockDig":
                 if (dropField != null){
                     if (((Enum<?>) dropField.get(m)).name().equals("DROP_ITEM")) {
-                        callEvent(KeyPressEvent.Key.Q);
+                        //callEvent(KeyPressEvent.Key.Q);
                     }
                 }
                 break;
             case "PacketPlayInArmAnimation":
-                callEvent(KeyPressEvent.Key.LEFT);
+                //callEvent(KeyPressEvent.Key.LEFT);
                 break;
             case "PacketPlayInUseItem":
             case "PacketPlayInBlockPlace":
-                callEvent(KeyPressEvent.Key.RIGHT);
+                //callEvent(KeyPressEvent.Key.RIGHT);
         }
         super.channelRead(c, m);
     }

@@ -112,6 +112,7 @@ public class MainListener extends SkillAPIListener
     @EventHandler
     public void onJoin(final PlayerJoinEvent event) {
         final Player player = event.getPlayer();
+
         if (player.hasMetadata("NPC") || !SkillAPI.getSettings().isWorldEnabled(player.getWorld()))
             return;
 
@@ -187,6 +188,7 @@ public class MainListener extends SkillAPIListener
         player.setWalkSpeed(0.2f);
         SkillAPI.unloadPlayerData(player, skipSaving);
     }
+    
 
     /**
      * Stops passives an applies death penalties when a player dies.

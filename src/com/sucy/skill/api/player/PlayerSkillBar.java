@@ -159,7 +159,8 @@ public class PlayerSkillBar
             return -1;
 
         ItemStack[] items = p.getInventory().getContents();
-        for (int i = 0; i < items.length; i++)
+        // Don't count equipment or offhand as empty slots
+        for (int i = 0; i < 36; i++)
             if ((items[i] == null || items[i].getType() == Material.AIR) && !slots.containsKey(i + 1) && !reserved.contains(i))
                 count++;
 
@@ -394,12 +395,16 @@ public class PlayerSkillBar
                 slots.put(i, UNASSIGNED);
                 if (enabled && player != null && player.getGameMode() != GameMode.CREATIVE)
                 {
-                    player.getInventory().clear(index);
-                    player.getInventory().setItem(index, SkillAPI.getSettings().getUnassigned());
+                	if(player.getInventory().getItem(index) == null || player.getInventory().getItem(index).getData().getItemType() == Material.AIR || !player.getInventory().getItem(index).equals(SkillAPI.getSettings().getUnassigned()))
+                	{
+	                    player.getInventory().clear(index);
+	                    player.getInventory().setItem(index, SkillAPI.getSettings().getUnassigned());
+                	}
                 }
             }
             else if (isEnabled() && player != null)
-                player.getInventory().setItem(index, skill.getData().getIndicator(skill, true));
+            	if(player.getInventory().getItem(index) == null || player.getInventory().getItem(index).getData().getItemType() == Material.AIR || !player.getInventory().getItem(index).equals(skill.getData().getIndicator(skill, true)))
+            		player.getInventory().setItem(index, skill.getData().getIndicator(skill, true));
         }
     }
 

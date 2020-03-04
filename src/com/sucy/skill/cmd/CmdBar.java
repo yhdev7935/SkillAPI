@@ -93,7 +93,9 @@ public class CmdBar implements IFunction
             // Not enough space
             if (!bar.isEnabled() && bar.countOpenSlots() < bar.getItemsInSkillSlots())
             {
-                command.sendMessage(sender, NO_SPACE, "&4You don't have enough inventory space for the skill bar");
+            	int k = bar.getItemsInSkillSlots() - bar.countOpenSlots();
+                //command.sendMessage(sender, NO_SPACE, "&4스킬바를 사용하기에 공간이 &a" + k + "&4칸이 더 필요합니다.");
+                sender.sendMessage("§f§l[ §c§lTiaS §f§l] §c스킬바를 사용하는데 공간이 §a" + k + "§c칸이 더 필요합니다.");
                 return;
             }
 

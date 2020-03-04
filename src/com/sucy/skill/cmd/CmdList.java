@@ -88,7 +88,7 @@ public class CmdList implements IFunction
                 {
                     PlayerData data = accounts.getData(i);
                     PlayerClass cData = data == null ? null : data.getMainClass();
-                    String name = cData == null ? ChatColor.GRAY + "Not Professed" : cData.getData().getPrefix();
+                    String name = cData == null ? ChatColor.GRAY + "직업 없음" : cData.getData().getPrefix();
                     String level = cData == null ? "0" : cData.getLevel() + "";
                     sender.sendMessage(
                         line
@@ -99,6 +99,7 @@ public class CmdList implements IFunction
                 }
             }
             cmd.sendMessage(sender, END, ChatColor.DARK_GRAY + "----------------------------");
+            sender.sendMessage(ChatColor.GOLD + "만약, 목록이 제대로 안 보인다면 /직업오류수정 을 입력해주세요.");
         }
 
         // Console doesn't have profession options
