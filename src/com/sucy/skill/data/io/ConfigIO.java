@@ -107,6 +107,7 @@ public class ConfigIO extends IOManager
         }
         catch (Exception ex)
         {
+        	Logger.bug(ex.getStackTrace().toString());
             Logger.bug("Failed to save data for invalid player");
         }
     }

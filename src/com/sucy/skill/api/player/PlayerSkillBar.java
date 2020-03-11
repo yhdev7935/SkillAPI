@@ -63,6 +63,7 @@ public class PlayerSkillBar
             reserve(SkillAPI.getSettings().getCastSlot());
         }
 
+
         this.player = player;
         for (int i = 1; i <= 9; i++)
             if (SkillAPI.getSettings().getDefaultBarLayout()[i - 1] && !reserved.contains(i - 1))
@@ -329,6 +330,7 @@ public class PlayerSkillBar
 
         // Update the slots
         setup = true;
+        enabled = true;
         update(player);
     }
 

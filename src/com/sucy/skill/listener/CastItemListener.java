@@ -45,6 +45,7 @@ import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
@@ -58,11 +59,12 @@ public class CastItemListener extends SkillAPIListener
 {
     private static HashMap<UUID, PlayerSkillSlot> data = new HashMap<UUID, PlayerSkillSlot>();
 
-    private static int slot = SkillAPI.getSettings().getCastSlot();
+    private static int slot;
 
     @Override
     public void init()
     {
+    	slot = SkillAPI.getSettings().getCastSlot();
         MainListener.registerJoin(this::init);
         MainListener.registerClear(this::handleClear);
         for (Player player : Bukkit.getOnlinePlayers())
@@ -210,6 +212,12 @@ public class CastItemListener extends SkillAPIListener
         if (SkillAPI.getSettings().isWorldEnabled(event.getEntity().getWorld())) {
             event.getDrops().remove(event.getEntity().getInventory().getItem(slot));
         }
+        cleanup(event.getEntity());
+    }
+    
+    @EventHandler
+    public void onRespawn(PlayerRespawnEvent event) {
+    	init(event.getPlayer());
     }
 
     /**

@@ -95,7 +95,7 @@ public class BarListener extends SkillAPIListener
 
     private void cleanup(Player player) {
         PlayerData data = SkillAPI.getPlayerData(player);
-        if (data.getSkillBar().isSetup())
+        if (data.hasClass() && data.getSkillBar().isSetup())
         {
             data.getSkillBar().clear(player);
         }
@@ -110,7 +110,17 @@ public class BarListener extends SkillAPIListener
         if (SkillAPI.getSettings().isWorldEnabled(player.getWorld())) {
             final PlayerData data = SkillAPI.getPlayerData(player);
             if (data.hasClass()) {
-                data.getSkillBar().setup(player);
+            	if (data.getSkillBar().isEnabled() && !data.getSkillBar().isSetup())
+            		data.getSkillBar().setup(player);
+            	
+	            	SkillAPI.schedule(new Runnable()
+	                {
+	                    @Override
+	                    public void run()
+	                    {
+	                        data.getSkillBar().update(player);
+	                    }
+	                }, 0);
             }
         }
     }
@@ -249,6 +259,8 @@ public class BarListener extends SkillAPIListener
         PlayerData data = SkillAPI.getPlayerData(event.getPlayer());
         if (data.hasClass())
         {
+        	if (!data.getSkillBar().isEnabled()) return;
+        	
             data.getSkillBar().setup(event.getPlayer());
             data.getSkillBar().update(event.getPlayer());
             if (data.getSkillBar().isSetup()
@@ -372,6 +384,14 @@ public class BarListener extends SkillAPIListener
     public void onChangeAccount(PlayerAccountChangeEvent event) {
         if (event.getPreviousAccount().getSkillBar().isSetup()) {
             event.getPreviousAccount().getSkillBar().clear(event.getPreviousAccount().getPlayer());
+        }
+        
+        if (event.getNewAccount().hasClass() && event.getNewAccount().getSkillBar().isEnabled())
+        {
+        	if (!event.getNewAccount().getSkillBar().isSetup())
+        	{
+        		SkillAPI.schedule(() -> event.getNewAccount().getSkillBar().setup(event.getNewAccount().getPlayer()), 0);
+        	}
         }
     }
 
